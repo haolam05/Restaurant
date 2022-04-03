@@ -8,26 +8,29 @@
 
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_include_tag "application", "data-turbo-track": "reload", defer: true %>
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap" rel="stylesheet">
   </head>
 
   <body>
-    <div class="<%= @page %>-page">
-      <div class="row page-container">
-        
-        <%= render "layouts/links" %>
-        <div class="col-8">
+    <% cache do %>
+      <div class="<%= @page %>-page">
+        <div class="row page-container">
+          
+          <%= render "layouts/links" %>
+          <div class="col-8">
 
-          <% unless @page == "home" %>
-            <%= render "layouts/title" %>
-          <% end %>
+            <% unless @page == "home" %>
+              <%= render "layouts/title" %>
+            <% end %>
 
-          <%= render "layouts/alerts" %>
-          <%= yield %>
+            <%= render "layouts/alerts" %>
+            <%= yield %>
+          </div>
+
+          <div class="col-2"></div>
+          
         </div>
-
-        <div class="col-2"></div>
-        
       </div>
-    </div>
+    <% end %>
   </body>
 </html>
