@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_04_03_064245) do
+ActiveRecord::Schema[7.0].define(version: 2022_04_03_234541) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -37,6 +37,14 @@ ActiveRecord::Schema[7.0].define(version: 2022_04_03_064245) do
     t.bigint "blob_id", null: false
     t.string "variation_digest", null: false
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
+  end
+
+  create_table "categories", force: :cascade do |t|
+    t.string "heading"
+    t.text "body"
+    t.boolean "display"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "order_items", force: :cascade do |t|
@@ -69,10 +77,12 @@ ActiveRecord::Schema[7.0].define(version: 2022_04_03_064245) do
     t.boolean "vegan", default: false
     t.boolean "vegetarian", default: false
     t.boolean "available", default: true
-    t.boolean "catering_item", default: false
+    t.boolean "catering", default: false
     t.boolean "featured", default: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "category_id"
+    t.index ["category_id"], name: "index_products_on_category_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -93,4 +103,5 @@ ActiveRecord::Schema[7.0].define(version: 2022_04_03_064245) do
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "order_items", "orders"
   add_foreign_key "order_items", "products"
+  add_foreign_key "products", "categories"
 end

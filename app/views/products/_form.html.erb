@@ -72,6 +72,16 @@
   </div>
 
   <div>
+    <%= form.label :category, style: "display: block" %>
+    <%= form.select :category_id, options_from_collection_for_select(Category.all, :id, :heading, @product.category.id) %>
+  </div>
+
+  <div>
+    <%= form.label :image, style: "display: block" %>
+    <%= form.file_file :image %>
+  </div>
+
+  <div>
     <%= form.submit %>
   </div>
 <% end %>

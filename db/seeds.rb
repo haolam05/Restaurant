@@ -6,13 +6,44 @@
 #   movies = Movie.create([{ name: "Star Wars" }, { name: "Lord of the Rings" }])
 #   Character.create(name: "Luke", movie: movies.first)
 
-# User.create!(email: 'tuonghao2001@gmail.com,', password: '1q2w3e', password_confirmation: '1q2w3e', admin: true)
+User.create!(email: 'tuonghao2001@gmail.com,', password: '1q2w3e', password_confirmation: '1q2w3e', admin: true)
 
-25.times do |n|
-    Product.create!(
-        name: "Pizza",
-        description: "Chicken BBQ Pizza New York ...",
-        price: 11.99,
-        catering: true
-    )
+Category.create!(heading: 'Pizza', body: "It's so good, dough!", display: true)
+Category.create!(heading: 'Pasta', body: 'We cannoli do so much in each vide', display: true)
+Category.create!(heading: 'Desserts', body: 'Rock rails icecream', display: true)
+
+10.times do |i|
+  pizza = Product.new(
+    name: 'Pizza',
+    description: 'Lorem ipsum bbq chicken upstate newyork free range dough',
+    price: 11.99,
+    catering: true,
+    category: Category.find(1)
+  )
+  pasta = Product.new(
+    name: 'Pasta',
+    description: 'Lorem ipsum bbq chicken upstate newyork free range dough',
+    price: 7.95,
+    catering: true,
+    category: Category.find(2)
+  )
+  dessert = Product.new(
+    name: 'Icecream',
+    description: 'Lorem ipsum bbq chicken upstate newyork free range dough',
+    price: 3.00,
+    catering: true,
+    category: Category.find(3)
+  )
+  pizza.image.attach(io: URI.open('https://picsum.photos/1920/1080'), filename: "#{i}_pizza_image.jpg")
+  pasta.image.attach(io: URI.open('https://picsum.photos/1920/1080'), filename: "#{i}_pasta_image.jpg")
+  dessert.image.attach(io: URI.open('https://picsum.photos/1920/1080'), filename: "#{i}_dessert_image.jpg")
+  if i == 5
+    pizza.featured = true
+    pasta.featured = true
+    dessert.featured = true
+  end
+
+  pizza.save
+  pasta.save
+  dessert.save
 end
